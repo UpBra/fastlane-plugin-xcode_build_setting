@@ -12,15 +12,21 @@ fastlane add_plugin xcode_build_setting
 
 ## About xcode_build_setting
 
-Get xcode build setting values
-
-**Note to author:** Add a more detailed description about this plugin here. If your plugin contains multiple actions, make sure to mention them here.
+Get xcode build setting value in a project for a given target and configuration.
 
 ## Example
 
-Check out the [example `Fastfile`](fastlane/Fastfile) to see how to use this plugin. Try it by cloning the repo, running `fastlane install_plugins` and `bundle exec fastlane test`.
+```ruby
+xcode_build_setting(
+	project: 'Example.xcodeproj',
+	target: 'Example',
+	configuration: 'Debug',
+	key: 'MY_USER_DEFINED_SETTING'
+)
 
-**Note to author:** Please set up a sample project to make it easy for users to explore what your plugin does. Provide everything that is necessary to try out the plugin in this project (including a sample Xcode/Android project if necessary)
+# Access the value from the lane_context
+result = lane_context[SharedValues::XCODE_BUILD_SETTING_VALUE]
+```
 
 ## Run tests for this plugin
 
