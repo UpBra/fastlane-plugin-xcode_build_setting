@@ -19,6 +19,11 @@ module Fastlane
 			end
 
 			def self.run(params)
+				FastlaneCore::PrintTable.print_values(
+					title: 'Xcode Build Setting',
+					config: params
+				)
+
 				project = Xcodeproj::Project.open(params[Key::PROJECT])
 				UI.user_error!("Failed to find project: #{params[Key::PROJECT]}") if project.nil?
 				
@@ -31,7 +36,7 @@ module Fastlane
 				result = configurations.first.build_settings[params[Key::KEY]]
 				UI.user_error!("Key #{params[Key::KEY]} does not exist") if result.nil?
 
-				UI.important("XCODE_BUILD_SETTING_VALUE: #{result}")
+				UI.important("#{params[Key::KEY]}: #{result}")
 
 				lane_context[SharedValues::XCODE_BUILD_SETTING_VALUE] = result
 			end
